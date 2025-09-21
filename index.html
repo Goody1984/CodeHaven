@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Your Message</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f2f5;
+            flex-direction: column;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .message-link {
+            display: inline-block;
+            padding: 12px 24px;
+            margin-top: 1rem;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Redirecting to your messages...</h2>
+        <p>Click the button below to send your message to the specified number:</p>
+        <a id="sendMessageLink" class="message-link">Send Message</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Retrieve the stored phone number from localStorage
+            const userPhoneNumber = localStorage.getItem('userPhoneNumber');
+            const messageRecipient = "0913 428 9618";
+            
+            if (userPhoneNumber) {
+                // Pre-populate the message body with the user's phone number
+                const messageBody = encodeURIComponent(`My phone number is: ${userPhoneNumber}`);
+                
+                // Construct the SMS link
+                const smsLink = `sms:${messageRecipient}?body=${messageBody}`;
+
+                // Set the href attribute of the link
+                document.getElementById('sendMessageLink').href = smsLink;
+            } else {
+                // Handle case where phone number is not found
+                alert('Phone number not found. Please go back to the previous page.');
+            }
+        });
+    </script>
+</body>
+</html>
